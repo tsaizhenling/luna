@@ -1,0 +1,11 @@
+sku,brand,name,color
+MA022AA44NFVSG,Mango,Panel Contrast Top,Medium Green
+MA022AA40NFZSG,Mango,Waterfall Structured Jacket,Black
+MA022AA42NFXSG,Mango,Waterfall Structured Jacket,Natural White
+MA022AA66NEZSG,Mango,Textured Printed Shirt,Medium Blue
+MA022AA32NGHSG,Mango,Suit Blazer,Navy
+MA022AA37NGCSG,Mango,Long Cotton Cardigan,Navy
+MA022AA38LCJSG,Mango,Suit Blazer,Black
+MA022AA41NFYSG,Mango,Waterfall Structured Jacket,Dark Red
+MA022AA51NBSSG,Mango,Cotton-Blend Knit Dress,Navy
+MA022AA53NBQSG,Mango,Sleeveless Dress,Bright Yellow

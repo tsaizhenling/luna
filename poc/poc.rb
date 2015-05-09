@@ -12,6 +12,7 @@ SKUS_INPUT_FILE_NAME = ARGV[0]
 BOW_FILE_NAME = "bag-of-words.txt"
 CLUSTERER_INPUT_FILE_NAME = "sim.txt"
 CLUSTERER_OUPUT_FILE_NAME = "cluster-index.txt"
+SEGMENT = ARGV[1] || "women"
 
 def jaccardIndex(text1, text2)
 	union = text1 | text2
@@ -48,11 +49,12 @@ file = File.new(BOW_FILE_NAME,"w")
 lem = Lemmatizer.new
 productArray.map do |product| 
 	brand = [CGI.escape(product[:brand].downcase)]
-	product[:bow] = brand + product[:color].downcase.scan(/\w+/)
+	product[:bow] = product[:color].downcase.scan(/\w+/)
 	productNameTokens = product[:name].downcase.scan(/\w+/)
 	productNameTokens.map do |string|
 		product[:bow] += [lem.lemma(string)]
 	end
+	product[:bow].uniq!
 end
 
 # remove words that only occur once
@@ -82,7 +84,7 @@ end
 file.close
 
 # remove if no bag of words
-productArray.reject { |product| product[:bow].count == 0 }
+productArray.reject! { |product| product[:bow].count == 0 }
 
 # calculate Jaccard Index for similarities
 # map to [-inf,0] 
@@ -118,10 +120,10 @@ file.close
 
 debug.sort! { |info1, info2| info1.jaccardIndex <=> info2.jaccardIndex }
 debug.each { |info| 
-	print "#{info.jaccardIndex} ".red
-	print "#{info.invertedJaccardIndex} ".blue
-	print "#{info.transformedJaccard1Index} ".yellow
-	print "#{info.transformedJaccardIndex}\n".green
+	#print "#{info.jaccardIndex} ".red
+	#print "#{info.invertedJaccardIndex} ".blue
+	#print "#{info.transformedJaccard1Index} ".yellow
+	#print "#{info.transformedJaccardIndex}\n".green
 }
 
 
@@ -163,7 +165,7 @@ clusters.each do |index,products|
 	end
 	# remove all words that occur only once
 	# arbitrarily decide the the keys must at least occur half the time
-	keyWordDictionary.select! { |keyword, count| count > products.count/2}
+	keyWordDictionary.select! { |keyword, count| count > cluster.products.count/2}
 	cluster.products = products
 	cluster.keys = keyWordDictionary.keys
 	orderedClusters.push(cluster)
@@ -176,10 +178,10 @@ queries = Array.new
 count = 1
 orderedClusters.each do |cluster|
 	# decide which clusters to use
-	# arbitrarily decide that cluster size has to be large than 2
-	if cluster.products.count > 3 && cluster.keys.count > 0
+	# arbitrarily decide that cluster size has to be larger than 2
+	if cluster.products.count > 2 && cluster.keys.count > 0
 		puts "===========Cluster #{count}================".green
-		queries.push(cluster.keys.join(" "))
+		queries.push(CGI.unescape(cluster.keys.join(" ")))
 	else
 		puts "===========Cluster #{count}(rejected)======".magenta
 	end
@@ -189,6 +191,8 @@ orderedClusters.each do |cluster|
 	end
 	count = count+1
 end
+
+queries.uniq!
 
 if queries.count == 0
 	puts "sorry i don't know what to reccommend".red
@@ -204,7 +208,7 @@ http = HTTPClient.new
 url = "https://api.zalora.sg/v1/products"
 results = Array.new
 queries.each do |query|
-	response = http.get(url,{"query"=>query},{ 'Accept' => 'application/json' })
+	response = http.get(url,{"query"=>query,"segment"=>SEGMENT},{ 'Accept' => 'application/json' })
 	if response.status == 200
 		productList = JSON.parse(response.body)
 		array = productList["data"]["products"]
@@ -222,8 +226,12 @@ queries.each do |query|
 end
 
 # remove duplicate products
-results = results.uniq
+results.uniq!
 # remove products already viewed
+skusViewed = productArray.map { |product| product[:sku] }
+results.select! do |product|
+	!skusViewed.include?product["config_sku"]
+end
 
 # preview everything
 def template

@@ -1,0 +1,30 @@
+sku,brand,name,color
+ME121SH80PTVSG,Melissa,Ultragirl Heel III With Ribbon,Black
+ME121SH79PTWSG,Melissa,Ultragirl Heel III With Ribbon,Brown
+ME121SH35QZKSG,Melissa,Classic Pointy Heels,Beige
+ME121SH41DNISG,Melissa,Lady Dragon III Peeptoe Block Heels,Beige
+ME121SH37QZISG,Melissa,Classic Pointy Heels,Black
+ME121SH39QZGSG,Melissa,Bite T-Bar Heels,Black
+ME121SH44DNFSG,Melissa,Flip Wedged Heels,Beige/Black
+ME121SH17PSKSG,Melissa,Ultragirl Sweet IX Ballet Flats,Black/Pink
+ME121SH38QZHSG,Melissa,Classic Pointy Heels,Pink
+ME121SH39DNKSG,Melissa,Lady Dragon III Peeptoe Block Heels,Black
+ME121SH40QZFSG,Melissa,Bite T-Bar Heels,Black/Beige
+ME121SH42DNHSG,Melissa,Flip Wedged Heels,Black
+ME121SH01DOWSG,Melissa,Ultragirl Sweet V Ballet Flats,White/Black
+ME121SH24QZVSG,Melissa,Colour Feeling II Ballet Flats,Beige/Black
+ME121SH36QZJSG,Melissa,Classic Pointy Heels,Blue
+ME121SH40DNJSG,Melissa,Lady Dragon III Peeptoe Block Heels,Red
+ME121SH43DNGSG,Melissa,Flip Wedged Heels,Bordeaux
+ME121SH90PTLSG,Melissa,Ultragirl Sweet VIII Ballet Flats,Beige
+ME121SH01RZASG,Melissa,Melissa Incense + Karl Lagerfeld,Black/Purple (Shiny)
+ME121SH22QZXSG,Melissa,Colour Feeling II Ballet Flats,Pink/Red
+ME121SH23QZWSG,Melissa,Colour Feeling II Ballet Flats,Grey/Black
+ME121SH25QZUSG,Melissa,Colour Feeling II Ballet Flats,White/Black
+ME121SH34QZLSG,Melissa,Patchuli IX Wedges,White
+ME121SH61WFESG,Melissa,Patchuli Heels VII,Red/Grey
+ME121SH67QYESG,Melissa,Flower + Isabela Capeto II Sandals,Beige
+ME121SH70QYBSG,Melissa,Strips Platform Chunky Heels,Black
+ME121SH72QXZSG,Melissa,Strips Platform Chunky Heels,White/Black
+ME121SH82QXPSG,Melissa,Ultragirl + Jason Wu V Ballet Flats,Light Pink
+ME121SH91PTKSG,Melissa,Ultragirl Sweet VIII Ballet Flats,Black
