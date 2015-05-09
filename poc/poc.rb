@@ -20,7 +20,7 @@ def jaccardIndex(text1, text2)
 end
 
 def jaccardTransform1(index)
-	(-Math::log(index,2))+0.5
+	(-Math::log(index,2))+1
 end
 
 def jaccardTransform(index)
@@ -28,11 +28,7 @@ def jaccardTransform(index)
 	if index == 0
 		-999999999999999
 	else
-		#if index < 0.4
-		#	-jaccardTransform1(index)**10
-		#else
-			-jaccardTransform1(index)**4
-		#end
+		(-jaccardTransform1(index)**10) +1
 	end
 end
 
