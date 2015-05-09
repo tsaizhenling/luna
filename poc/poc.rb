@@ -6,6 +6,7 @@ require 'json'
 require 'erb'
 require 'colorize'
 require 'thor'
+require 'matrix'
 
 # constants
 PREVIEW_FILE_NAME = "preview.html"
@@ -18,19 +19,59 @@ SEGMENT = ARGV[1] || "women"
 class Cluster
 	attr_accessor :products
     attr_accessor :keys
+    attr_accessor :exemplar
 end
 
 class DebugInfo
+	attr_accessor :text1
+	attr_accessor :text2
 	attr_accessor :jaccardIndex
+	attr_accessor :cosine_similarity
+	attr_accessor :euclidean_distance
     attr_accessor :invertedJaccardIndex
     attr_accessor :transformedJaccard1Index
     attr_accessor :transformedJaccardIndex
 end
 
+def get_vectors(text1,text2)
+	union = text1 | text2
+	union.uniq!
+	text1Array = Array.new
+	text2Array = Array.new
+	union.each do |word|
+		if text1.include?word
+			text1Array.push(1)
+		else
+			text1Array.push(0)
+		end
+
+		if text2Array.include?word
+			text2Array.push(1)
+		else
+			text2Array.push(1)
+		end
+	end
+	vector1 = Vector.elements(text1Array)
+	vector2 = Vector.elements(text2Array)
+	return vector1, vector2
+end
+
+def cosine_similarity(text1,text2)
+	vector1,vector2 = get_vectors(text1,text2)
+	vector1.dot(vector2) / (vector1.norm * vector2.norm)
+end
+
+def euclidean_distance(text1,text2)
+	vector1,vector2 = get_vectors(text1,text2)
+	(vector1 - vector2).norm
+end
+
 def jaccardIndex(text1, text2)
 	union = text1 | text2
+	union.uniq!
 	intersect = text1 & text2
-	intersect.count.to_f / union.count.to_f
+	index = intersect.count.to_f / union.count.to_f
+	return index
 end
 
 def jaccardTransform1(index)
@@ -81,14 +122,12 @@ def clean_data(productArray)
 			counts[string] += 1
 		end
 	end
-
 	singles = Array.new()
 	counts.each do |string, count|
 		if count == 1
 			singles.push(string)
 		end
 	end
-
 	productArray.each do |product|
 		product[:bow] = product[:bow] - singles
 	end
@@ -119,13 +158,18 @@ def calculate_similarities(outfile, productArray)
 			j = productArray.index(product2)
 			if j > i
 				index = jaccardIndex(product1[:bow],product2[:bow])
-				info = DebugInfo.new
-				info.jaccardIndex = index
-				info.invertedJaccardIndex = 1 - index
-				info.transformedJaccard1Index = jaccardTransform1(index)
-				info.transformedJaccardIndex = jaccardTransform(index)
-				debug.push(info)
-				file << "#{i} #{j} #{jaccardTransform(index)}\n"
+				similarity = jaccardTransform(index)
+				file << "#{i} #{j} #{similarity}\n"
+				#info = DebugInfo.new
+				#info.text1 = product1[:bow]
+				#info.text2 = product2[:bow]
+				#info.jaccardIndex = index
+				#info.invertedJaccardIndex = 1 - index
+				#info.transformedJaccard1Index = jaccardTransform1(index)
+				#info.transformedJaccardIndex = similarity
+				#info.cosine_similarity = cosine_similarity(product1[:bow],product2[:bow])
+				#info.euclidean_distance = euclidean_distance(product1[:bow],product2[:bow])
+				#debug.push(info)
 			end
 		end
 	end
@@ -133,10 +177,14 @@ def calculate_similarities(outfile, productArray)
 
 	debug.sort! { |info1, info2| info1.jaccardIndex <=> info2.jaccardIndex }
 	debug.each do |info| 
-		#print "#{info.jaccardIndex} ".red
-		#print "#{info.invertedJaccardIndex} ".blue
-		#print "#{info.transformedJaccard1Index} ".yellow
-		#print "#{info.transformedJaccardIndex}\n".green
+		print "#{info.text1} ".yellow
+		print "#{info.text2}\n".green
+		print "#{info.jaccardIndex} ".red
+		print "#{info.cosine_similarity} ".cyan
+		print "#{info.euclidean_distance} ".magenta
+		print "#{info.invertedJaccardIndex} ".blue
+		print "#{info.transformedJaccard1Index} ".yellow
+		print "#{info.transformedJaccardIndex}\n".green
 	end
 end
 
@@ -166,6 +214,7 @@ def cluster(similarities,productArray)
 	clusters.each do |index,products|
 		cluster = Cluster.new
 		cluster.products = products
+		cluster.exemplar = productArray[index]
 		# find the keys of each cluster
 		allKeyWords = Array.new
 		products.each { |product| allKeyWords.concat(product[:bow]) }
@@ -197,7 +246,11 @@ def cluster(similarities,productArray)
 		end
 		puts "Keys : #{cluster.keys}"
 		cluster.products.each do |product|
-			puts "#{product[:sku]} #{product[:bow]}"
+			if product == cluster.exemplar
+				puts "***#{product[:sku]} #{product[:bow]}"
+			else
+				puts "#{product[:sku]} #{product[:bow]}"
+			end
 		end
 		count = count+1
 	end
