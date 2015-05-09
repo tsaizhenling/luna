@@ -1,0 +1,9 @@
+sku,brand,name,color
+HE305AC06OPXSG,Herschel,Johnny Wallet,Black/Portland
+HE305AC96OQHSG,Herschel,Walt Wallet,Caramel/Navy
+AS214SH71NCYSG,ASICS Tiger,Gel-Lyte III Shoes,Light Grey/White
+HE305AC02GZHSG,Herschel,Edward Wallet,Navy/Red
+HE305AC02YIJSG,Herschel,Johnny Zip Wallet,Navy/Red
+HE305AC11OPSSG,Herschel,Eighteen Hip Pack,Polka Dot Small
+HE305AC65ONQSG,Herschel,Little America Mid Volume Backpack,Khaki Sequence/Navy Rubber
+RE207SE10RORSG,Reebok,Sublite Escape 2.0 Running Shoes,Black/Gravel/Matte Silver
