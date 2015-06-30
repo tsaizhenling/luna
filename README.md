@@ -38,7 +38,7 @@ input: list of products. this list can be dictated by user interest or user brow
 **limitations**
 
 * has a dependency on mobile API search functionality and by extension, solr's product indexing
-* only able to find good open-source lemmatizers for english at the moment. luna will not work so well for other languages(yet)
+* only able to find good open-source lemmatizers for english at the moment. luna will not work so well for other languages(for now)
 
 ### sampleGenerator - helper to generate sample data for testing
 
