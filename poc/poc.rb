@@ -79,11 +79,10 @@ def jaccardTransform1(index)
 end
 
 def jaccardTransform(index)
-	#((0.25-index)*10)**10
 	if index == 0
-		-999999999999999
+		-9999999999999
 	else
-		(-jaccardTransform1(index)**10) +1
+		(-jaccardTransform1(index)**10) + 1
 	end
 end
 
@@ -116,21 +115,21 @@ end
 def clean_data(productArray)
 	# remove words that only occur once
 	# as they make the data set too sparse
-	counts = Hash.new 0
-	productArray.each do |product|
-		product[:bow].each do |string|
-			counts[string] += 1
-		end
-	end
-	singles = Array.new()
-	counts.each do |string, count|
-		if count == 1
-			singles.push(string)
-		end
-	end
-	productArray.each do |product|
-		product[:bow] = product[:bow] - singles
-	end
+    #	counts = Hash.new 0
+    #productArray.each do |product|
+    #	product[:bow].each do |string|
+    #		counts[string] += 1
+    #	end
+    #end
+    #singles = Array.new()
+    #counts.each do |string, count|
+    #	if count == 1
+    #		singles.push(string)
+    #	end
+    #end
+    #productArray.each do |product|
+    #	product[:bow] = product[:bow] - singles
+    #end
 	file = File.new(BOW_FILE_NAME,"w")
 	# output processed data
 	productArray.map do |product| 
@@ -149,14 +148,14 @@ def calculate_similarities(outfile, productArray)
 	# output with indexes to file
 	file = File.new(outfile,"w")
 	n = productArray.count - 1
-	numOfComparisons = ((n*n) + n)/2
+	numOfComparisons = (((n*n) + n)/2) + n
 	file << "#{numOfComparisons} #{productArray.count}\n"
 	debug = Array.new()
 	productArray.each do |product1|
 		productArray.each do |product2|
 			i = productArray.index(product1)
 			j = productArray.index(product2)
-			if j > i
+			if j >= i
 				index = jaccardIndex(product1[:bow],product2[:bow])
 				similarity = jaccardTransform(index)
 				file << "#{i} #{j} #{similarity}\n"
@@ -194,6 +193,7 @@ def cluster(similarities,productArray)
 	puts "---------------------------------------------------------".blue
 
 	# cluster
+    system("g++ affinity_propagation.cpp -o ap2")
 	system("./ap2 #{similarities} #{CLUSTERER_OUPUT_FILE_NAME}")
 	file = File.new(CLUSTERER_OUPUT_FILE_NAME, "r")
 	clusters = Hash.new
@@ -334,8 +334,9 @@ def template
 
 class Cli < Thor
 	desc(
-    'reccomend <input filepath> <segment>(default to women)','tries to reccomend products based on user product view history'
+    'reccomend <input filepath> <segment>(default to women) <preview>(default to true)','tries to reccomend products based on user product view history'
     )
+    option :preview, :type => :boolean, :default => true
     def reccomend(inputFilePath,segment='women')
     	productArray = parse_data(inputFilePath)
     	productArray = clean_data(productArray)
@@ -347,8 +348,11 @@ class Cli < Thor
 		file = File.open(PREVIEW_FILE_NAME, "w")
 		file.write(data)
 		file.close
-		
-		system("open -a \"Google Chrome\" #{PREVIEW_FILE_NAME}")
+		if options['preview']
+			system("open -a \"Google Chrome\" #{PREVIEW_FILE_NAME}")
+		else 
+			puts "no preview"
+		end
     end
 end
 
