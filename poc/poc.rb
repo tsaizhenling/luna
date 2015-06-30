@@ -1,12 +1,12 @@
 require 'CSV'
 require 'cgi'
-require "lemmatizer"
+require 'lemmatizer'
 require 'httpclient'
 require 'json'
 require 'erb'
 require 'colorize'
 require 'thor'
-require 'matrix'
+#require 'matrix'
 
 # constants
 PREVIEW_FILE_NAME = "preview.html"
@@ -33,38 +33,38 @@ class DebugInfo
     attr_accessor :transformedJaccardIndex
 end
 
-def get_vectors(text1,text2)
-	union = text1 | text2
-	union.uniq!
-	text1Array = Array.new
-	text2Array = Array.new
-	union.each do |word|
-		if text1.include?word
-			text1Array.push(1)
-		else
-			text1Array.push(0)
-		end
-
-		if text2Array.include?word
-			text2Array.push(1)
-		else
-			text2Array.push(1)
-		end
-	end
-	vector1 = Vector.elements(text1Array)
-	vector2 = Vector.elements(text2Array)
-	return vector1, vector2
-end
-
-def cosine_similarity(text1,text2)
-	vector1,vector2 = get_vectors(text1,text2)
-	vector1.dot(vector2) / (vector1.norm * vector2.norm)
-end
-
-def euclidean_distance(text1,text2)
-	vector1,vector2 = get_vectors(text1,text2)
-	(vector1 - vector2).norm
-end
+#def get_vectors(text1,text2)
+#	union = text1 | text2
+#	union.uniq!
+#	text1Array = Array.new
+#	text2Array = Array.new
+#	union.each do |word|
+#		if text1.include?word
+#			text1Array.push(1)
+#		else
+#			text1Array.push(0)
+#		end
+#
+#		if text2Array.include?word
+#			text2Array.push(1)
+#		else
+#			text2Array.push(1)
+#		end
+#	end
+#	vector1 = Vector.elements(text1Array)
+#	vector2 = Vector.elements(text2Array)
+#	return vector1, vector2
+#end
+#
+#def cosine_similarity(text1,text2)
+#	vector1,vector2 = get_vectors(text1,text2)
+#	vector1.dot(vector2) / (vector1.norm * vector2.norm)
+#end
+#
+#def euclidean_distance(text1,text2)
+#	vector1,vector2 = get_vectors(text1,text2)
+#	(vector1 - vector2).norm
+#end
 
 def jaccardIndex(text1, text2)
 	union = text1 | text2
