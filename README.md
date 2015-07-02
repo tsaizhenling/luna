@@ -10,14 +10,9 @@ any experiment to change the strategy of luna should be carried out on this prot
 
 **dependencies**
 
-please install the following ruby gems
-```
-colorize
-lemmatizer
-httpclient
-json
-thor
-```
+Use bundler to install all dependencies.
+
+    bundle install
 
 **to use**
 
