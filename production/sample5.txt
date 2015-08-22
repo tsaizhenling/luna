@@ -1,0 +1,5 @@
+sku,brand,name,color
+JE372AA81FBAMY,Jennifer Creations,Azzyati Jubah,Blue
+JE372AA79FBCMY,Jennifer Creations,Azzyati Jubah,Light Red
+JE372AA76FBFMY,Jennifer Creations,Azzyati Jubah,Grey
+ZA223AA51ZAMMY,Zariya,Pallazo Wrinkle Free Pants,Apple Green

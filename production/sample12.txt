@@ -1,0 +1,51 @@
+sku,brand,name,color
+MA022AA25LBASG,Mango,Keyhole Detail Dress,Medium Green
+MA022AA19TCASG,Mango,Keyhole Detail Dress,Bluish
+MA022AA79LCUSG,Mango,Keyhole Detail Dress,Dark Red
+MA022AA77OWWSG,Mango,Striped cotton-blend dress,Navy
+MA022AA82EEZSG,Mango,Braided Cord Dress,Black
+MA022AA57OXQSG,Mango,Decorative zip skirt,Black
+FJ859AC77GTISG,Fjallraven Kanken,Lake Blue Kanken No. 2 Backpack,Lake Blue
+MA022AA05OVUSG,Mango,Seam bodycon dress,Bright Blue
+MA022AA11OVOSG,Mango,Fitted textured dress,Black
+MA022AA29KYWSG,Mango,Striped cotton dress,Natural White
+MA022AA64LDJSG,Mango,Decorative Trim Skirt,Black
+MA022AA65EBUSG,Mango,Stripe Textured Dress,Medium Grey
+MA022AA81EFASG,Mango,Braided Cord Dress,Khaki
+MA022AA91LCISG,Mango,Check Shift Dress,Bright Red
+AL087SH20CWPSG,ALDO,Larieniel Sandals,Gold
+AL087SH21CWOSG,ALDO,Larieniel Sandals,Silver
+BR147AA08RWTSG,bread n butter,Textured Front Dress,Yellow
+CH700AA15QKUSG,:CHOCOOLATE,Nyc Applique Tunic,Navy
+FJ859AC03RFKSG,Fjallraven Kanken,Ox Red Kanken Mini Backpack,Ox Red
+FJ859AC04RFJSG,Fjallraven Kanken,UN Blue-Navy Kanken Backpack,UN Blue-Navy
+FJ859AC05RFISG,Fjallraven Kanken,Graphite-UN Blue Kanken Backpack,Graphite-UN Blue
+FJ859AC16FPFSG,Fjallraven Kanken,Brick Kanken Classic Backpack,Brick
+FJ859AC57LBYSG,Fjallraven Kanken,Ochre Kanken Classic Backpack,Ochre
+FJ859AC78GTHSG,Fjallraven Kanken,Autumn Leaf Kanken No.2 Backpack,Autumn Leaf
+HE305AC01OMGSG,Herschel,Survey Crosshatch Collection Backpack,Charcoal Crosshatch
+HE305AC86YIZSG,Herschel,Survey Backpack,Navy
+HE305AC90OMRSG,Herschel,Retreat Crosshatch Collection Backpack,Chambray Crosshatch/White Rubber
+HE305AC91OMQSG,Herschel,Retreat Backpack,Caramel/Navy Rubber
+HE305AC98OMJSG,Herschel,Settlement Crosshatch Collection Backpack,Chambray Crosshatch Rubber
+MA022AA30KYVSG,Mango,Striped cotton dress,Black
+MA022AA38KYNSG,Mango,Decorative trim dress,Black
+MA022AA41KYKSG,Mango,Shirt dress,Black
+MA022AA42NCBSG,Mango,Shirt Dress,Black
+MA022AA52YPRSG,Mango,Retro Dress,Natural White
+MA022AA58OXPSG,Mango,Decorative Zip Skirt,Light Pastel Pink
+MA022AA58YPLSG,Mango,Cut-Out Detail Dress,Black
+MA022AA59OXOSG,Mango,Decorative Zip Skirt,Bright Red
+MA022AA59YPKSG,Mango,Cut-Out Detail Dress,Medium Pink
+MA022AA63OXKSG,Mango,Textured cotton-blend miniskirt,Black
+MA022AA65OTMSG,Mango,Contrast trim top,Black
+MA022AA68OXFSG,Mango,Geometric-pattern dress,Red
+MA022AA78LCVSG,Mango,Ribbed Jersey Dress,Dark Red
+MA022AA79OWUSG,Mango,Minimal dress,Black
+MA022AA95LCESG,Mango,Ribbed Jersey Dress,Black
+MI763AA01PFUTH,Milin,Alexandron Dress,White
+RU228SH59EQISG,Rubi,Jade Plimsolls,Black
+RU228SH60EQHSG,Rubi,Jade Plimsolls,Grey
+TR724AA62TCZSG,Tracyeinny,Ebony Floral Bodycon Dress,Multi
+ZA274SH54SSVSG,ZALORA,Basic Canvas Sneakers,Black
+SO764AC08DMLSG,ZALORA,Structured Backpack,Black

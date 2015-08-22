@@ -1,0 +1,5 @@
+sku,brand,name,color
+AM536AC50XKJSG,American Tourister,Puzzle-Lite Spinner 78,Lime
+AM536AC31BOUSG,American Tourister,Para-Lite Spinner 77,Black
+AM536AC43ISASG,American Tourister,Tokyo Chic Spinner 57,Black
+AM536AC49XKKSG,American Tourister,Puzzle-Lite Spinner 78,Rose

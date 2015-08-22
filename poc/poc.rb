@@ -334,7 +334,7 @@ def template
 
 class Cli < Thor
 	desc(
-    'reccomend <input filepath> <segment>(default to women) <preview>(default to true)','tries to reccomend products based on user product view history'
+    'reccomend <input filepath> <segment>(default to women) <option:preview>(default to true)','tries to reccomend products based on user product view history'
     )
     option :preview, :type => :boolean, :default => true
     def reccomend(inputFilePath,segment='women')
