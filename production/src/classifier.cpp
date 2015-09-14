@@ -2,41 +2,24 @@
 #include <map>
 #include <vector>
 #include <iostream>
-#include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "matrix.h"
 #include "cluster.h"
 #include "utils.h"
-
-template class Matrix<double>;
+#include "classifier.h"
 
 using namespace std;
 
-int* getIndexes(Matrix<double> S,double median, int N);
-double JaccardIndex(set<string>set1,set<string>set2);
-double transformedJaccardIndex( double JaccardIndex );
+Classifier::Classifier(vector<set<string> > allProducts,int iter,int convit,double lambda) 
+: 
+products(allProducts),
+_iter(iter),
+_lambda(lambda),
+_convit(convit) {
+}
 
-int main(int argc, char *argv[])
-{
-
-	ifstream testfile(argv[1]);
-	string line;
-	vector<set<string> > products;
-	int N = 0;
-	while (std::getline(testfile, line)) {
-		stringstream ss(line);
-		string s;
-		set<string> words;
-		while (getline(ss, s, ' ')) {
- 			words.insert(s);
-		}
-		products.push_back(words);
-		N++;
-	}
-	testfile.close();
-
-
+set<set<string> >Classifier::deriveKeywords() {
+	int N = products.size();
 	Matrix<double> S(N,N);
 	vector<double> tmpS;
 
@@ -88,17 +71,10 @@ int main(int argc, char *argv[])
 		keywords.insert(cluster.getKeywords());
 		++i;
 	}
-
-	
-	ofstream outfile(argv[2]);
-	for (auto query : keywords)
-	{
-		printSetOfStrings(outfile,query);
-	}
-	outfile.close();
+	return keywords;
 }
 
-int* getIndexesForResponsibilitiesAndAvailabilities (Matrix<double> R, Matrix<double> A, Matrix<double> S, int N) {
+int* Classifier::getIndexesForResponsibilitiesAndAvailabilities (Matrix<double> R, Matrix<double> A, Matrix<double> S, int N) {
 	//find the exemplar
     set<int> *center = new set<int>;
     for(int i=0; i<N; i++) {
@@ -128,16 +104,12 @@ int* getIndexesForResponsibilitiesAndAvailabilities (Matrix<double> R, Matrix<do
     return idx;
 }
 
-int* getIndexes(Matrix<double> S,double median, int N) {
+int* Classifier::getIndexes(Matrix<double> S,double median, int N) {
 	//N is the number of two-dimension data points
 	//S is the similarity matrix
 	//R is the responsibility matrix
 	//A is the availabiltiy matrix
-	//iter is the maximum number of iterations
-	//lambda is the damping factor
-	int iter = 1500;
-    int convit = 150; // number of iterations to check for change of exemplars. if no change for convit number of iterations, terminate
-	double lambda = 0.9;
+	
 	Matrix<double> R(N,N);
 	Matrix<double> A(N,N);
 
@@ -146,7 +118,7 @@ int* getIndexes(Matrix<double> S,double median, int N) {
     int *last_idx = new int[N];
     memset(last_idx, 0, N*sizeof(int));
     
-	for(int m=0; m<iter; m++) {
+	for(int m=0; m<_iter; m++) {
 	//update responsibility
 		for(int i=0; i<N; i++) {
 			for(int k=0; k<N; k++) {
@@ -159,7 +131,7 @@ int* getIndexes(Matrix<double> S,double median, int N) {
 					if(S(i,kk)+A(i,kk)>max) 
 						max = S(i,kk)+A(i,kk);
 				}
-				R(i,k) = (1-lambda)*(S(i,k) - max) + lambda*R(i,k);
+				R(i,k) = (1-_lambda)*(S(i,k) - max) + _lambda*R(i,k);
 			}
 		}
 	//update availability
@@ -173,7 +145,7 @@ int* getIndexes(Matrix<double> S,double median, int N) {
 					for(int ii=i+1; ii<N; ii++) {
 						sum += max(0.0, R(ii,k));
 					}
-					A(i,k) = (1-lambda)*sum + lambda*A(i,k);
+					A(i,k) = (1-_lambda)*sum + _lambda*A(i,k);
 				} else {
 					double sum = 0.0;
 					int maxik = max(i, k);
@@ -187,11 +159,11 @@ int* getIndexes(Matrix<double> S,double median, int N) {
 					for(int ii=maxik+1; ii<N; ii++) {
 						sum += max(0.0, R(ii,k));
 					}
-					A(i,k) = (1-lambda)*min(0.0, R(k,k)+sum) + lambda*A(i,k);
+					A(i,k) = (1-_lambda)*min(0.0, R(k,k)+sum) + _lambda*A(i,k);
 				}
 			}
 		}
-        if (m % convit == 0 && m != 0) { // check for convergence
+        if (m % _convit == 0 && m != 0) { // check for convergence
             cout << "checking for convergence.." << endl;
             
             int *idx = getIndexesForResponsibilitiesAndAvailabilities(R,A,S,N);
@@ -213,7 +185,7 @@ int* getIndexes(Matrix<double> S,double median, int N) {
 	return last_idx;
 }
 
-double JaccardIndex(set<string>set1,set<string>set2) {
+double Classifier::JaccardIndex(set<string>set1,set<string>set2) {
 	set<string> unionSet;
 	set_union(set1.begin(),set1.end(),set2.begin(),set2.end(),inserter(unionSet,unionSet.begin()));
 	set<string> intersectSet;
@@ -221,7 +193,7 @@ double JaccardIndex(set<string>set1,set<string>set2) {
 	return (double)intersectSet.size() / (double)unionSet.size();
 }
 
-double transformedJaccardIndex( double jaccardIndex ) {
+double Classifier::transformedJaccardIndex( double jaccardIndex ) {
 	if (jaccardIndex == 0)
 	{
 		return -99999999;

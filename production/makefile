@@ -21,7 +21,7 @@ pre-build:
 $(OBJ_DIR)/%.o: $(SOURCE_DIR)/%.cpp 
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIB_DIR)/libparser.a: $(OBJS)
+$(LIB_DIR)/libluna.a: $(OBJS)
 	ar rcs $@ $^
 
 clean:

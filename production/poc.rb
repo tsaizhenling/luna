@@ -6,7 +6,6 @@ require 'json'
 require 'erb'
 require 'colorize'
 require 'thor'
-#require 'matrix'
 
 # constants
 PREVIEW_FILE_NAME = "preview.html"
@@ -60,8 +59,7 @@ def get_keywords(productArray)
 		file << "\n"
 	end
 	file.close
-	system("g++ -Wno-c++11-extensions affinity_propagation.cpp -o ap2")
-	system("./ap2 #{BOW_FILE_NAME} #{KEYWORD_OUPUT_FILE_NAME}")
+	system("./bin/ap2 #{BOW_FILE_NAME} #{KEYWORD_OUPUT_FILE_NAME}")
 	file = File.new(KEYWORD_OUPUT_FILE_NAME, "r")
 	keywords = Array.new
 	file.each_line do |line|
