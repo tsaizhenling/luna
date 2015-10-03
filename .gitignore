@@ -4,3 +4,4 @@ poc/bag-of-words.txt
 poc/cluster-index.txt
 poc/preview.html
 poc/sim.txt
+*.o
