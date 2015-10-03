@@ -9,9 +9,12 @@ test.OBJ_DIR = $(TEST_DIR)/obj
 test.CPP_FILES = $(wildcard $(test.SOURCE_DIR)/*.cpp)
 test.OBJS = $(wildcard $(OBJ_DIR)/*.o) $(patsubst $(test.SOURCE_DIR)%,$(test.OBJ_DIR)%,$(patsubst %.cpp,%.o,$(test.CPP_FILES)))
 
-test.all: $(test.OBJS)
+test.all: test.pre-build $(test.OBJS)
 	$(test.CXX) $(test.CXXFLAGS) $(test.INCS) -o testAll $(test.OBJS)
 	./testAll --gtest_output="xml:./testAll.xml"
+
+test.pre-build:
+	mkdir -p $(test.OBJ_DIR)
 
 $(test.OBJ_DIR)/%.o: $(test.SOURCE_DIR)/%.cpp
 	$(test.CXX) $(test.CXXFLAGS) -c $< -o $@ $(test.INCS)
