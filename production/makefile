@@ -6,6 +6,7 @@ LIB_DIR = lib
 LIB_NAME = luna
 HEADER_DIR = $(LIB_DIR)/headers
 MAIN_FILE = example/main.cpp
+TEST_DIR = test
 
 CPP_FILES = $(wildcard $(SOURCE_DIR)/*.cpp)
 OBJS = $(patsubst $(SOURCE_DIR)%,$(OBJ_DIR)%,$(patsubst %.cpp,%.o,$(CPP_FILES)))
@@ -15,7 +16,7 @@ DEBUG = -g
 CFLAGS = -Wno-c++11-extensions
 
 
-all : pre-build $(OBJS) $(LIB_DIR)/lib$(LIB_NAME).a
+all : pre-build $(OBJS) $(LIB_DIR)/lib$(LIB_NAME).a test.all
 	$(CC) $(CFLAGS) $(MAIN_FILE) -I $(HEADER_DIR) -L $(LIB_DIR) -l $(LIB_NAME) -o $(EXE_DIR)/$(EXE_NAME)
 
 pre-build:
@@ -30,5 +31,7 @@ $(LIB_DIR)/lib$(LIB_NAME).a: $(OBJS)
 	cp $(SOURCE_DIR)/* $(HEADER_DIR)
 	rm $(HEADER_DIR)/*.cpp
 
-clean:
+clean: test.clean
 	\rm -r $(OBJ_DIR)/*.o $(EXE_DIR)/$(EXE_NAME) $(LIB_DIR)/*
+
+include $(TEST_DIR)/makefile

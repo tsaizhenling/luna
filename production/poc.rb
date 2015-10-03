@@ -14,13 +14,6 @@ BOW_FILE_NAME = "bag-of-words.txt"
 KEYWORD_OUPUT_FILE_NAME = "keywords.txt"
 SEGMENT = ARGV[1] || "women"
 
-class Cluster
-	attr_accessor :products
-    attr_accessor :keys
-    attr_accessor :exemplar
-end
-
-
 def parse_data(inputFilePath)
 	file = File.new(inputFilePath, "r")
 	rawData = file.read
