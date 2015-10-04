@@ -13,7 +13,7 @@ class Classifier {
 public:
 	Classifier(vector<set<string> > allProducts,int iter = 1500,int convit=150,double lambda = 0.9);
 	set<set<string> >deriveKeywords();
-private:
+protected:
 	//iter is the maximum number of iterations
 	//lambda is the damping factor
 	int _iter;
@@ -21,7 +21,7 @@ private:
 	double _lambda;
 	vector<set<string> > products;
 	int* getIndexes(Matrix<double> S,double median, int N);
-	double JaccardIndex(set<string>set1,set<string>set2);
-	double transformedJaccardIndex( double JaccardIndex );	
+	static double jaccardIndex(set<string>set1,set<string>set2);
+	static double transformedJaccardIndex( double JaccardIndex );	
 	int* getIndexesForResponsibilitiesAndAvailabilities (Matrix<double> R, Matrix<double> A, Matrix<double> S, int N);
 };

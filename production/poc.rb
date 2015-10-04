@@ -81,14 +81,19 @@ def get_products(queries,productArray)
 		if response.status == 200
 			productList = JSON.parse(response.body)
 			array = productList["data"]["products"]
-			array.delete_at(0)
-			array.delete_at(0)
-			if results.count == 0
-		 		results = array
-			else
-			 	results = results.zip(array).flatten.compact
-			end 
-			puts "got #{productList["data"]["product_count"]} products for " + query
+			if array
+				array.delete_at(0)
+				array.delete_at(0)
+			
+				if results.count == 0
+		 			results = array
+				else
+			 		results = results.zip(array).flatten.compact
+				end 
+				puts "got #{productList["data"]["product_count"]} products for " + query
+			else 
+				puts "got no products for " + query
+			end
 		else
 			puts "get products for #{query} failed"
 		end

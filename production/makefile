@@ -20,7 +20,7 @@ all : pre-build $(OBJS) $(LIB_DIR)/lib$(LIB_NAME).a test.all
 	$(CC) $(CFLAGS) $(MAIN_FILE) -I $(HEADER_DIR) -L $(LIB_DIR) -l $(LIB_NAME) -o $(EXE_DIR)/$(EXE_NAME)
 
 pre-build:
-	mkdir -p $(EXE_DIR) $(OBJ_DIR) $(LIB_DIR) $(TEMP_DIR)
+	mkdir -p $(EXE_DIR) $(OBJ_DIR) $(LIB_DIR)
 
 $(OBJ_DIR)/%.o: $(SOURCE_DIR)/%.cpp 
 	$(CC) $(CFLAGS) -c $< -o $@

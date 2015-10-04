@@ -29,7 +29,7 @@ set<set<string> >Classifier::deriveKeywords() {
 		{
 			if (j >= i)
 			{
-				double similarity = transformedJaccardIndex(JaccardIndex(products[i],products[j]));
+				double similarity = transformedJaccardIndex(jaccardIndex(products[i],products[j]));
 				S(i,j) = similarity;
 				S(j,i) = S(i,j);
 				tmpS.push_back(S(i,j)); 
@@ -185,7 +185,7 @@ int* Classifier::getIndexes(Matrix<double> S,double median, int N) {
 	return last_idx;
 }
 
-double Classifier::JaccardIndex(set<string>set1,set<string>set2) {
+double Classifier::jaccardIndex(set<string>set1,set<string>set2) {
 	set<string> unionSet;
 	set_union(set1.begin(),set1.end(),set2.begin(),set2.end(),inserter(unionSet,unionSet.begin()));
 	set<string> intersectSet;

@@ -7,10 +7,10 @@ test.INCS = -I./ -I$(SOURCE_DIR) -I/usr/include
 test.SOURCE_DIR = $(TEST_DIR)/src
 test.OBJ_DIR = $(TEST_DIR)/obj
 test.CPP_FILES = $(wildcard $(test.SOURCE_DIR)/*.cpp)
-test.OBJS = $(wildcard $(OBJ_DIR)/*.o) $(patsubst $(test.SOURCE_DIR)%,$(test.OBJ_DIR)%,$(patsubst %.cpp,%.o,$(test.CPP_FILES)))
+test.OBJS = $(patsubst $(test.SOURCE_DIR)%,$(test.OBJ_DIR)%,$(patsubst %.cpp,%.o,$(test.CPP_FILES)))
 
 test.all: test.pre-build $(test.OBJS)
-	$(test.CXX) $(test.CXXFLAGS) $(test.INCS) -o testAll $(test.OBJS)
+	$(test.CXX) $(test.CXXFLAGS) $(test.INCS) -L $(LIB_DIR) -l $(LIB_NAME) -o testAll $(test.OBJS)
 	./testAll --gtest_output="xml:./testAll.xml"
 
 test.pre-build:

@@ -1,29 +1,28 @@
 #include <map>
 #include <set>
 #include <vector>
-#include <iostream>
 #include "utils.h"
 #include "cluster.h"
 
 using namespace std;
 
-void Cluster::print() {
-	cout << "keywords: ";
-	printSetOfStrings(cout,this->getKeywords());
+void Cluster::print(ostream& out) {
+	out << "keywords: ";
+	printSetOfStrings(out,this->getKeywords());
 
-	cout << '*';
+	out << '*';
 	set<string> words = keyProduct;
 	for (auto word : words)
 	{
-		cout << word << " ";
+		out << word << " ";
 	}
-	cout << endl;
+	out << endl;
 	for (auto words : allOtherProducts) {
 		for (auto word : words)
 		{
-			cout << word << " ";
+			out << word << " ";
 		}
-		cout << endl;
+		out << endl;
 	}
 }
 
