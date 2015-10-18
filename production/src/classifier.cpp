@@ -60,8 +60,8 @@ set<set<string> >Classifier::deriveKeywords() {
 		}
 		clusters[index] = cluster;
 	}
-
 	int i = 1;
+	delete last_idx;
 	//output the assignment
 	set<set<string> > keywords;
 	for(auto kv : clusters) {
@@ -101,6 +101,7 @@ int* Classifier::getIndexesForResponsibilitiesAndAvailabilities (Matrix<double> 
     	}
     	idx[i] = idxForI;
     }
+    delete center;
     return idx;
 }
 
@@ -175,11 +176,14 @@ int* Classifier::getIndexes(Matrix<double> S,double median, int N) {
                 }
             }
             if (equal) {
+            	delete idx;
                 cout << "terminate early! at iter="<< m << endl;
                 break;
             } else {
                 memcpy(last_idx, idx, N*sizeof(int));
+                delete idx;
             }
+            
         }
 	}
 	return last_idx;
