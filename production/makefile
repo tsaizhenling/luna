@@ -15,6 +15,8 @@ CC = g++
 DEBUG = -g
 CFLAGS = -Wno-c++11-extensions
 
+no-test : pre-build $(OBJS) $(LIB_DIR)/lib$(LIB_NAME).a
+	$(CC) $(CFLAGS) $(MAIN_FILE) -I $(HEADER_DIR) -L $(LIB_DIR) -l $(LIB_NAME) -o $(EXE_DIR)/$(EXE_NAME)
 
 all : pre-build $(OBJS) $(LIB_DIR)/lib$(LIB_NAME).a test.all
 	$(CC) $(CFLAGS) $(MAIN_FILE) -I $(HEADER_DIR) -L $(LIB_DIR) -l $(LIB_NAME) -o $(EXE_DIR)/$(EXE_NAME)
@@ -30,6 +32,9 @@ $(LIB_DIR)/lib$(LIB_NAME).a: $(OBJS)
 	mkdir -p $(HEADER_DIR)
 	cp $(SOURCE_DIR)/* $(HEADER_DIR)
 	rm $(HEADER_DIR)/*.cpp
+
+clean-no-test:
+	\rm -r $(OBJ_DIR)/*.o $(EXE_DIR)/$(EXE_NAME) $(LIB_DIR)/*
 
 clean: test.clean
 	\rm -r $(OBJ_DIR)/*.o $(EXE_DIR)/$(EXE_NAME) $(LIB_DIR)/*
