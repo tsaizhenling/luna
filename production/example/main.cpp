@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	Classifier classifier(products);
 
 	//output the assignment
-	set<set<string> > keywords = classifier.deriveKeywords();
+	set<set<string> > keywords = classifier.deriveKeywords(cout);
 
 	
 	ofstream outfile(argv[2]);

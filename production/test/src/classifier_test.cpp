@@ -32,7 +32,7 @@ class ClassifierTest : public Classifier {
     	}
 
     	int* getIndexes(Matrix<double> S,double median, int N) {
-    		return Classifier::getIndexes(S,median,N);
+    		return Classifier::getIndexes(S,median,N,cout);
     	}
 };
 
@@ -169,5 +169,5 @@ TEST_F(classifier_test,deriveKeywords) {
 	set<set<string> > results;
 	results.insert(resultsSet1);
 	results.insert(resultsSet2);
-	ASSERT_EQ(results,testClassifier.deriveKeywords());
+	ASSERT_EQ(results,testClassifier.deriveKeywords(cout));
 }
