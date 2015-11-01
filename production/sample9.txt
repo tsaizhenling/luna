@@ -1,7 +1,0 @@
-sku,brand,name,color
-AL087SH54OQBSG,ALDO,Wares Sandals,Bright Multi
-ME121SH21PSGSG,Melissa,Flox Gladiator Sandals,Beige
-ME121SH87PTOSG,Melissa,Flox High Block Heels,Black
-ME121SH91PTKSG,Melissa,Ultragirl Sweet VIII Ballet Flats,Black
-ST791SH64RYDSG,Steve Madden Exclusive Sale,HABTAT-S Embellished Sandals,Tan Multi
-TI845SH01NVASG,Timberland,Timberland Women's Cornish Short Vamp Slip Ons,Light Pink/Medium Brown/Tan Gluvy

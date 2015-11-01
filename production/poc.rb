@@ -16,24 +16,20 @@ SEGMENT = ARGV[1] || "women"
 
 def parse_data(inputFilePath)
 	file = File.new(inputFilePath, "r")
-	rawData = file.read
+    productArray = []
+    file.each_line do |line|
+        product = {}
+        product[:tokens] = line.split(" ")
+        productArray.push(product)
+    end
 	file.close
-
-	# parse data
-	CSV::Converters[:blank_to_nil] = lambda do |field|
-  		field && field.empty? ? nil : field
-	end
-	csv = CSV.new(rawData, :headers => true, :header_converters => :symbol, :converters => [:all, :blank_to_nil])
-	productArray = csv.to_a.map {|row| row.to_hash }
-
-	# url encode brand and lemmatize name
+	# lemmatize words
 	lem = Lemmatizer.new
-	productArray.map do |product| 
-		brand = [CGI.escape(product[:brand].downcase)]
-		product[:bow] = product[:color].downcase.scan(/\w+/)
-		productNameTokens = product[:name].downcase.scan(/\w+/)
+	productArray.map do |product|
+        productNameTokens = product[:tokens]
+        product[:bow] = []
 		productNameTokens.map do |string|
-			product[:bow] += [lem.lemma(string)]
+            product[:bow] += [lem.lemma(string)]
 		end
 		product[:bow].uniq!
 	end
