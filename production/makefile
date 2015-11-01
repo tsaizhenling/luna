@@ -34,9 +34,9 @@ $(LIB_DIR)/lib$(LIB_NAME).a: $(OBJS)
 	rm $(HEADER_DIR)/*.cpp
 
 clean-no-test:
-	\rm -r $(OBJ_DIR)/*.o $(EXE_DIR)/$(EXE_NAME) $(LIB_DIR)/*
+	-rm -rf $(OBJ_DIR)/*.o $(EXE_DIR)/$(EXE_NAME) $(LIB_DIR)/*
 
 clean: test.clean
-	\rm -r $(OBJ_DIR)/*.o $(EXE_DIR)/$(EXE_NAME) $(LIB_DIR)/*
+	-rm -rf $(OBJ_DIR)/*.o $(EXE_DIR)/$(EXE_NAME) $(LIB_DIR)/*
 
 include $(TEST_DIR)/makefile

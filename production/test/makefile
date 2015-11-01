@@ -20,4 +20,4 @@ $(test.OBJ_DIR)/%.o: $(test.SOURCE_DIR)/%.cpp
 	$(test.CXX) $(test.CXXFLAGS) -c $< -o $@ $(test.INCS)
 
 test.clean:
-	rm -r testAll $(test.OBJ_DIR)/*.o testAll.xml
+	-rm -rf testAll $(test.OBJ_DIR)/*.o testAll.xml

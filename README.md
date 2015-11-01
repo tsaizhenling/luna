@@ -21,7 +21,7 @@ Use bundler to install all dependencies, to run poc.rb
 **Building**
 
     cd production
-    make no-test
+    make
 
 **How to use**
 
@@ -40,7 +40,7 @@ first, install gtest
 see https://code.google.com/p/tonatiuh/wiki/InstallingGoolgeTestForMac
 
     make clean
-    make
+    make all
 
 **Notes on preprocessing data**
 
