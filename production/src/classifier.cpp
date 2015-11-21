@@ -18,7 +18,7 @@ _lambda(lambda),
 _convit(convit) {
 }
 
-set<set<string> >Classifier::deriveKeywords(ostream& out) {
+set<set<string> >Classifier::deriveKeywords() {
 	int N = products.size();
 	Matrix<double> S(N,N);
 	vector<double> tmpS;
@@ -45,7 +45,7 @@ set<set<string> >Classifier::deriveKeywords(ostream& out) {
 	else 
 		median = tmpS[tmpS.size()/2];
 	
-	int *last_idx = getIndexes(S,median,N,out);
+	int *last_idx = getIndexes(S,median,N);
 
 	// build the clusters
 	std::map <int, Cluster > clusters;
@@ -66,11 +66,6 @@ set<set<string> >Classifier::deriveKeywords(ostream& out) {
 	set<set<string> > keywords;
 	for(auto kv : clusters) {
 		Cluster cluster = kv.second;
-		if (out)
-		{
-			out << "========cluster:" << i << "=========" << endl;
-		}
-		cluster.print();
 		keywords.insert(cluster.getKeywords());
 		++i;
 	}
@@ -108,7 +103,7 @@ int* Classifier::getIndexesForResponsibilitiesAndAvailabilities (Matrix<double> 
     return idx;
 }
 
-int* Classifier::getIndexes(Matrix<double> S,double median, int N,ostream& out) {
+int* Classifier::getIndexes(Matrix<double> S,double median, int N) {
 	//N is the number of two-dimension data points
 	//S is the similarity matrix
 	//R is the responsibility matrix
@@ -168,10 +163,6 @@ int* Classifier::getIndexes(Matrix<double> S,double median, int N,ostream& out) 
 			}
 		}
         if (m % _convit == 0 && m != 0) { // check for convergence
-        	if (out)
-        	{
-        		out << "checking for convergence.." << endl;
-        	}
             int *idx = getIndexesForResponsibilitiesAndAvailabilities(R,A,S,N);
 
             bool equal = true;
@@ -182,9 +173,6 @@ int* Classifier::getIndexes(Matrix<double> S,double median, int N,ostream& out) 
             }
             if (equal) {
             	delete idx;
-            	if (out) {
-            		out << "terminate early! at iter="<< m << endl;
-            	}
                 break;
             } else {
                 memcpy(last_idx, idx, N*sizeof(int));

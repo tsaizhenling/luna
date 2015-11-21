@@ -6,6 +6,7 @@ require 'json'
 require 'erb'
 require 'colorize'
 require 'thor'
+require './bin/luna.bundle'
 
 # constants
 PREVIEW_FILE_NAME = "preview.html"
@@ -37,28 +38,30 @@ def parse_data(inputFilePath)
 end
 
 def get_keywords(productArray)
-	file = File.new(BOW_FILE_NAME,"w")
-	# remove if no bag of words
 	productArray.reject! { |product| product[:bow].count == 0 }
-	# output processed data
+	products = Luna::StringSetVector.new
 	productArray.map do |product| 
+		words = Luna::StringSet.new
 		product[:bow].map do |word|
-			file << word << " "
+			words << word
 		end
-		file << "\n"
+		products << words
 	end
-	file.close
-	system("./bin/ap2 #{BOW_FILE_NAME} #{KEYWORD_OUPUT_FILE_NAME}")
-	file = File.new(KEYWORD_OUPUT_FILE_NAME, "r")
-	keywords = Array.new
-	file.each_line do |line|
-		keywords.push(line)
+	classifier = Luna::Classifier.new(products)
+	keywords = classifier.deriveKeywords()
+	queries = []
+	keywords.map do |words|
+		query = ""
+		words.map do |word|
+			query = query + word + " "
+		end
+		queries << query
 	end
-	file.close
-	return keywords
+	return queries
 end
 
 def get_products(queries,productArray)
+
 	if queries.count == 0
 		puts "sorry i don't know what to reccommend".red
 		exit()	
