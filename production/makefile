@@ -31,6 +31,8 @@ $(LIB_DIR)/lib$(LIB_NAME).a: $(OBJS)
 	mkdir -p $(HEADER_DIR)
 	cp $(SOURCE_DIR)/* $(HEADER_DIR)
 	rm $(HEADER_DIR)/*.cpp
+	rm $(HEADER_DIR)/*.i
+	rm $(HEADER_DIR)/*.tpp
 
 $(EXE_DIR)/(LIB_NAME).bundle: 
 	swig -c++ -ruby -o $(SOURCE_DIR)/$(SWIG_CXX) $(SOURCE_DIR)/$(SWIG_I)
