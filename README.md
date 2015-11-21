@@ -4,9 +4,11 @@ lean portable reccommendation engine. named after Luna, advisor to sailor moon.
 
 ## production
 
-libluna contains all the functions required for clustering and is intended to function as the core of the reccommendation engine
+luna.bundle contains all the functions required for clustering and is intended to function as the core of the reccommendation engine
 
 see prod.rb for an example on how to pre-process and post-process the data.
+
+libluna is built for testing
 
 sample usage:
 
@@ -18,21 +20,13 @@ Use bundler to install all dependencies, to run poc.rb
 
     bundle install
 
+we use [swig](http://www.swig.org/) to generate the ruby interface for luna
+
+
 **Building**
 
     cd production
     make
-
-**How to use**
-
-see example/main.cpp on how to use libluna
-
-    vector<set<string> > products;
-    // populate products
-    .
-    .
-    Classifier classifier(products);
-    set<set<string> > keywords = classifier.deriveKeywords(cout);
 
 **Unit tests**
 
@@ -40,7 +34,7 @@ first, install gtest
 see https://code.google.com/p/tonatiuh/wiki/InstallingGoolgeTestForMac
 
     make clean
-    make all
+    make test
 
 **Notes on preprocessing data**
 
@@ -76,7 +70,6 @@ input: list of products. this list can be dictated by user interest or user brow
 **limitations**
 
 * has a dependency on API search functionality and by extension, the search API's product indexing
-
 
 
 
