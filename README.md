@@ -2,7 +2,7 @@
 
 lean portable reccommendation engine. named after Luna, advisor to sailor moon.
 
-## production
+
 
 luna.bundle contains all the functions required for clustering and is intended to function as the core of the reccommendation engine
 
@@ -12,7 +12,9 @@ libluna is built for testing
 
 sample usage:
 
-    ruby prod.rb reccomend sample2.txt
+    ruby prod.rb reccomend sampleA.txt
+    
+the demo will launch a google chrome window with an amazon search result for each cluster
 
 **Dependencies**
 
@@ -40,16 +42,6 @@ see https://code.google.com/p/tonatiuh/wiki/InstallingGoolgeTestForMac
 
 the words passed in should be lemmatized, so that works like `pleated` and `pleat` are recognized as the same keyword.
 
-## poc - proof of concept
-
-this folder contains a command line application which is a working prototype of luna.
-
-any experiment to change the strategy of luna should be carried out on this prototype first
-
-**to use**
-
-run ```ruby poc.rb``` for user guide
-
 **how it works**
 
 input: list of products. this list can be dictated by user interest or user browsing history
@@ -64,8 +56,7 @@ input: list of products. this list can be dictated by user interest or user brow
 * get key words that represent each cluster
 
 *post-processing*
-* use the keys words to query mobile API like a search result
-* interleave the individual search results
+* use the keys words to query an API like a search result
 
 **limitations**
 
